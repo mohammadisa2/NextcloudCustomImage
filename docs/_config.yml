@@ -1,4 +1,4 @@
-title: "Nextcloud di CasaOS + Cloudflare Tunnel"
+title: "Nextcloud Custom Install"
 description: "Dokumentasi setup Nextcloud di CasaOS (Docker + PostgreSQL + Redis + Cloudflare Tunnel) dengan troubleshooting dan checklist."
 remote_theme: just-the-docs/just-the-docs
 plugins:
