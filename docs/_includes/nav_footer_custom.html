@@ -1,0 +1,39 @@
+{% assign current_url = page.url | default: "/" %}
+{% assign is_en = false %}
+{% if current_url == "/en/" or current_url contains "/en/" %}
+  {% assign is_en = true %}
+{% endif %}
+
+{% assign id_url = "/" | relative_url %}
+{% assign en_url = "/en/" | relative_url %}
+
+{% if is_en %}
+  {% if current_url contains "/en/tutorial/" %}
+    {% assign id_url = "/tutorial/" | relative_url %}
+  {% elsif current_url contains "/en/issues/" %}
+    {% assign id_url = "/issues/" | relative_url %}
+  {% elsif current_url contains "/en/ops/" %}
+    {% assign id_url = "/ops/" | relative_url %}
+  {% endif %}
+{% else %}
+  {% if current_url contains "/tutorial/" %}
+    {% assign en_url = "/en/tutorial/" | relative_url %}
+  {% elsif current_url contains "/issues/" %}
+    {% assign en_url = "/en/issues/" | relative_url %}
+  {% elsif current_url contains "/ops/" %}
+    {% assign en_url = "/en/ops/" | relative_url %}
+  {% endif %}
+{% endif %}
+
+<hr>
+<div class="nav-language-switcher">
+  <div><strong>Language</strong></div>
+  <div>
+    {% if is_en %}
+      <a href="{{ id_url }}">Indonesia</a> | <strong>English</strong>
+    {% else %}
+      <strong>Indonesia</strong> | <a href="{{ en_url }}">English</a>
+    {% endif %}
+  </div>
+</div>
+
