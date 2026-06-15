@@ -1,5 +1,6 @@
 ---
 title: Operasional
+parent: Indonesia
 nav_order: 4
 has_children: true
 lang: id

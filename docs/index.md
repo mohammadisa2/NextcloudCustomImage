@@ -1,6 +1,7 @@
 ---
-title: Home
+title: Indonesia
 nav_order: 1
+has_children: true
 lang: id
 lang_ref: home
 ---
