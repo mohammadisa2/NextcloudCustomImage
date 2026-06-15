@@ -1,0 +1,19 @@
+title: "Nextcloud di CasaOS + Cloudflare Tunnel"
+description: "Dokumentasi setup Nextcloud di CasaOS (Docker + PostgreSQL + Redis + Cloudflare Tunnel) dengan troubleshooting dan checklist."
+remote_theme: just-the-docs/just-the-docs
+plugins:
+  - jekyll-remote-theme
+
+color_scheme: dark
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter_opts:
+    block:
+      line_numbers: false
+
+aux_links:
+  "Repo":
+    - "https://github.com/<GITHUB_USERNAME>/<REPO_NAME>"
+
