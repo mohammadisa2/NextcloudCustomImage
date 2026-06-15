@@ -1,5 +1,9 @@
 # Nextcloud Custom Install
 
+[![Docs](https://img.shields.io/badge/docs-github%20pages-blue)](https://mohammadisa2.github.io/NextcloudCustomInstall/)
+[![Deploy GitHub Pages](https://github.com/mohammadisa2/NextcloudCustomInstall/actions/workflows/pages.yml/badge.svg)](https://github.com/mohammadisa2/NextcloudCustomInstall/actions/workflows/pages.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
 Documentation project for setting up Nextcloud on CasaOS with Docker, PostgreSQL, Redis, and Cloudflare Tunnel.
 
 This repository provides a structured GitHub Pages documentation site with:
@@ -20,7 +24,7 @@ This repository provides a structured GitHub Pages documentation site with:
 
 ## Documentation
 
-- GitHub Pages: [Nextcloud Custom Install Docs](https://mohammadisa2.github.io/NextcloudCustomImage/)
+- GitHub Pages: [Nextcloud Custom Install Docs](https://mohammadisa2.github.io/NextcloudCustomInstall/)
 - Indonesian docs: [docs/](docs/)
 - English docs: [docs/en/](docs/en/)
 
@@ -54,9 +58,13 @@ Key files:
 - GitHub Pages workflow: [.github/workflows/pages.yml](.github/workflows/pages.yml)
 - Jekyll config: [docs/_config.yml](docs/_config.yml)
 
+Production site configuration:
+
+- `url`: `https://mohammadisa2.github.io`
+- `baseurl`: `/NextcloudCustomInstall`
+
 ## License
 
 This project is licensed under the MIT License.
 
 See [LICENSE](LICENSE) for details.
-

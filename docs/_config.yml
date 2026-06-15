@@ -1,5 +1,7 @@
 title: "Nextcloud Custom Install"
 description: "Dokumentasi setup Nextcloud di CasaOS (Docker + PostgreSQL + Redis + Cloudflare Tunnel) dengan troubleshooting dan checklist."
+url: "https://mohammadisa2.github.io"
+baseurl: "/NextcloudCustomInstall"
 remote_theme: just-the-docs/just-the-docs
 plugins:
   - jekyll-remote-theme
@@ -19,4 +21,4 @@ kramdown:
 
 aux_links:
   "Repo":
-    - "https://github.com/mohammadisa2/NextcloudCustomImage"
+    - "https://github.com/mohammadisa2/NextcloudCustomInstall"
