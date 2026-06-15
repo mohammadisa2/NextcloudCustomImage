@@ -1,14 +1,14 @@
 ---
-title: "30–31. nas-check (Audit Berkala)"
-parent: Operasional
+title: "30–31. nas-check (Periodic Audit)"
+parent: Operations (EN)
 nav_order: 2
-lang: id
+lang: en
 lang_ref: ops-02-nas-check
 ---
 
-## 30. Command Audit Berkala `nas-check`
+## 30. Periodic Audit Command `nas-check`
 
-Buat command:
+Create the command:
 
 ```bash
 sudo tee /usr/local/bin/nas-check >/dev/null <<'EOF'
@@ -32,10 +32,10 @@ docker ps --format "table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}"
 
 echo ""
 echo "===== 3. NEXTCLOUD STATUS ====="
-docker exec -u www-data nextcloud php occ status || echo "Nextcloud OCC gagal"
+docker exec -u www-data nextcloud php occ status || echo "Nextcloud OCC failed"
 
 echo ""
-echo "===== 4. NEXTCLOUD CONFIG IMPORTANT ====="
+echo "===== 4. IMPORTANT NEXTCLOUD CONFIG ====="
 echo "--- Trusted domains:"
 docker exec -u www-data nextcloud php occ config:system:get trusted_domains || true
 echo "--- Trusted proxies:"
@@ -70,7 +70,7 @@ echo "===== 8. PORTS EXPOSED ON HOST ====="
 ss -tulpn | grep -E "(:22|:80|:443|:8080|:5432|:6379)" || true
 
 echo ""
-echo "===== 9. NEXTCLOUD RECENT LOG ====="
+echo "===== 9. RECENT NEXTCLOUD LOG ====="
 docker exec -u www-data nextcloud tail -n 20 /var/www/html/data/nextcloud.log || true
 
 echo ""
@@ -83,43 +83,43 @@ docker stats --no-stream
 
 echo ""
 echo "===== DONE ====="
-echo "Checklist sehat:"
+echo "Healthy checklist:"
 echo "- Nextcloud installed true"
 echo "- maintenance false"
 echo "- needsDbUpgrade false"
 echo "- cloudflared Up"
-echo "- no cloudflared error terbaru"
-echo "- HTTP/2 302 ke /login"
-echo "- HSTS ada"
-echo "- X-Powered-By tidak muncul"
-echo "- SSD terbaca"
-echo "- data Nextcloud mount ke SSD"
-echo "- cron aktif"
+echo "- no recent cloudflared error"
+echo "- HTTP/2 302 to /login"
+echo "- HSTS present"
+echo "- X-Powered-By hidden"
+echo "- SSD detected"
+echo "- Nextcloud data mounted to SSD"
+echo "- cron active"
 EOF
 
 sudo chmod +x /usr/local/bin/nas-check
 ```
 
-Edit placeholder:
+Edit placeholders:
 
 ```bash
 sudo nano /usr/local/bin/nas-check
 ```
 
-Ganti:
+Replace:
 
 ```txt
 DOMAIN="<DOMAIN>"
 SSD="<SSD_MOUNT>"
 ```
 
-Jalankan:
+Run:
 
 ```bash
 sudo nas-check
 ```
 
-Simpan hasil:
+Save the output:
 
 ```bash
 sudo nas-check | tee ~/nas-check-$(date +%Y%m%d-%H%M%S).log
@@ -127,9 +127,9 @@ sudo nas-check | tee ~/nas-check-$(date +%Y%m%d-%H%M%S).log
 
 ---
 
-## 31. Cara Membaca Hasil `nas-check`
+## 31. How to Read `nas-check` Output
 
-Sehat:
+Healthy:
 
 ```txt
 Nextcloud Up
@@ -139,24 +139,24 @@ cloudflared Up
 No cloudflared error in last 10 minutes
 HTTP/2 302
 location: https://<DOMAIN>/login
-HSTS ada
-X-Powered-By tidak muncul
-SSD mount terbaca
-Cron aktif
-Nextcloud log kosong atau tidak ada error baru
+HSTS present
+X-Powered-By does not appear
+SSD mount detected
+Cron active
+Nextcloud log is empty or has no new error
 ```
 
-Perlu dicek:
+Needs checking:
 
 ```txt
-Root disk di atas 90%
-RAM available sangat kecil
+Root disk above 90%
+Very small available RAM
 maintenance: true
 needsDbUpgrade: true
-cloudflared banyak error baru
-HSTS hilang
-X-Powered-By muncul lagi
-SSD mount tidak terbaca
-Filesystem read-only
-Nextcloud data masuk ke root/eMMC, bukan SSD
+Many new cloudflared errors
+HSTS missing
+X-Powered-By appears again
+SSD mount not detected
+Filesystem is read-only
+Nextcloud data is going to root/eMMC instead of the SSD
 ```

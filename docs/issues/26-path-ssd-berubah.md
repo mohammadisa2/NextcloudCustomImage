@@ -2,6 +2,8 @@
 title: "Issue 26: Path SSD berubah dari sda1 ke sdb1"
 parent: Issues
 nav_order: 3
+lang: id
+lang_ref: issue-26-ssd-path-change
 ---
 
 ## 26. Issue: Path SSD Berubah dari `sda1` ke `sdb1`
@@ -51,4 +53,3 @@ Atau lebih rapi untuk setup baru:
 ```txt
 UUID=<SSD_UUID> /mnt/nextcloud-ssd ext4 defaults,nofail,x-systemd.device-timeout=10 0 2
 ```
-

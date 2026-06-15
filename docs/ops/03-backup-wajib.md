@@ -2,6 +2,8 @@
 title: "32. Backup Wajib"
 parent: Operasional
 nav_order: 3
+lang: id
+lang_ref: ops-03-backup-required
 ---
 
 ## 32. Backup Wajib
@@ -33,4 +35,3 @@ Cloud storage
 Remote server
 Object storage seperti S3/R2
 ```
-

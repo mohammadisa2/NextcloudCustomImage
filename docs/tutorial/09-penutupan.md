@@ -2,6 +2,8 @@
 title: "34–35. Checklist Final + Kesimpulan"
 parent: Tutorial
 nav_order: 9
+lang: id
+lang_ref: tutorial-09-closing
 ---
 
 Halaman operasional lengkap:
@@ -81,4 +83,3 @@ Contacts
 Notes
 File sharing pribadi
 ```
-

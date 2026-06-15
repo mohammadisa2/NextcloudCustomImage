@@ -2,6 +2,8 @@
 title: "1. Placeholder yang Harus Diganti"
 parent: Tutorial
 nav_order: 2
+lang: id
+lang_ref: tutorial-02-placeholders
 ---
 
 ## 1. Placeholder yang Harus Diganti
@@ -35,4 +37,3 @@ Karena `sda1`, `sdb1`, `sdc1` bisa berubah setelah reboot atau storage reconnect
 Referensi issue terkait:
 
 - [Issue: Path SSD berubah dari sda1 ke sdb1](../issues/26-path-ssd-berubah.md)
-

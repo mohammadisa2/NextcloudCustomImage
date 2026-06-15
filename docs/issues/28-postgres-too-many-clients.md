@@ -2,6 +2,8 @@
 title: "Issue 28: PostgreSQL too many clients already"
 parent: Issues
 nav_order: 5
+lang: id
+lang_ref: issue-28-postgres-too-many-clients
 ---
 
 ## 28. Issue: PostgreSQL `too many clients already`
@@ -50,4 +52,3 @@ Kalau error tidak muncul lagi, log boleh dibersihkan
 Rujukan langkah terkait:
 
 - [Cek dan bersihkan log Nextcloud](../ops/01-log-nextcloud.md)
-

@@ -2,6 +2,8 @@
 title: "7. Install Awal Nextcloud dari Browser"
 parent: Tutorial
 nav_order: 5
+lang: id
+lang_ref: tutorial-05-initial-install
 ---
 
 ## 7. Install Awal Nextcloud dari Browser
@@ -33,4 +35,3 @@ Jangan gunakan SQLite untuk setup NAS jangka panjang.
 Referensi issue terkait:
 
 - [Issue: Install awal gagal (postgres host/alias salah)](../issues/08-install-awal-gagal.md)
-

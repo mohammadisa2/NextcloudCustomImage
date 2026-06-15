@@ -2,6 +2,8 @@
 title: "9–12. Domain Cloudflare + Tunnel"
 parent: Tutorial
 nav_order: 6
+lang: id
+lang_ref: tutorial-06-cloudflare-tunnel
 ---
 
 ## 9. Setup Domain di Cloudflare
@@ -151,4 +153,3 @@ Port lokal seperti ini masih normal:
 80   CasaOS gateway lokal
 8080 Nextcloud lokal
 ```
-

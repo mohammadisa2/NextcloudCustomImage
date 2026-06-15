@@ -1,28 +1,28 @@
 ---
-title: "29. Cek dan Bersihkan Log Nextcloud"
-parent: Operasional
+title: "29. Check and Clean Nextcloud Logs"
+parent: Operations (EN)
 nav_order: 1
-lang: id
+lang: en
 lang_ref: ops-01-log-nextcloud
 ---
 
-## 29. Cek dan Bersihkan Log Nextcloud
+## 29. Check and Clean Nextcloud Logs
 
-Cek waktu UTC:
+Check UTC time:
 
 ```bash
 date -u
 ```
 
-Cek log:
+Check the log:
 
 ```bash
 sudo docker exec -u www-data nextcloud tail -n 20 /var/www/html/data/nextcloud.log
 ```
 
-Jika log error timestamp lama dan tidak muncul lagi setelah waktu pengecekan terbaru, boleh clear log.
+If the error timestamps are old and no longer appear after a newer check, it is acceptable to clear the log.
 
-Backup dan clear:
+Back up and clear:
 
 ```bash
 LOG="<SSD_MOUNT>/docker/nextcloud/html/data/nextcloud.log"
@@ -31,18 +31,18 @@ sudo cp "$LOG" "$LOG.bak.$(date +%Y%m%d-%H%M%S)"
 sudo truncate -s 0 "$LOG"
 ```
 
-Cek:
+Check:
 
 ```bash
 sudo docker exec -u www-data nextcloud tail -n 20 /var/www/html/data/nextcloud.log
 ```
 
-Kalau kosong, log sudah bersih.
+If it is empty, the log is clean.
 
-Tunggu 1–2 menit lalu cek lagi:
+Wait 1 to 2 minutes and check again:
 
 ```bash
 sudo docker exec -u www-data nextcloud tail -n 20 /var/www/html/data/nextcloud.log
 ```
 
-Kalau tetap kosong, warning `Errors in the log` di Overview biasanya hilang setelah refresh / beberapa saat.
+If it stays empty, the `Errors in the log` warning in Overview usually disappears after a refresh or after some time.

@@ -1,27 +1,21 @@
 ---
-title: Issues
+title: Issues (EN)
+nav_title: Issues
 parent: English
 nav_order: 2
 has_children: true
+lang: en
+lang_ref: issues-index
 ---
 
 # Issues (Troubleshooting)
 
-The current troubleshooting split is already good:
+This section contains common issues that can happen during a Nextcloud on CasaOS + Docker + Cloudflare Tunnel setup. Each issue is separated into its own page so it is easier to find and reference from the tutorial steps.
 
-- Each issue is separated into its own page
-- Tutorial steps can reference the relevant issue page
-- General operational topics stay outside issue pages
+Issue list:
 
-Common issue groups covered in the Indonesian documentation:
-
-- Initial installation failure caused by wrong PostgreSQL host or alias
-- `403` errors and unreadable `.htaccess`
-- SSD path changes from `sda1` to `sdb1`
-- `EXT4` aborted journal and read-only filesystem
-- PostgreSQL `too many clients already`
-
-Detailed Indonesian issue pages:
-
-- [Issue pages in Indonesian](../../issues/)
-
+- [Issue 08: Initial install failure](08-initial-install-failure.md)
+- [Issue 25: 403 and unreadable .htaccess](25-403-htaccess.md)
+- [Issue 26: SSD path changes from sda1 to sdb1](26-ssd-path-changes.md)
+- [Issue 27: EXT4 aborted journal (read-only filesystem)](27-ext4-aborted-journal.md)
+- [Issue 28: PostgreSQL too many clients already](28-postgres-too-many-clients.md)

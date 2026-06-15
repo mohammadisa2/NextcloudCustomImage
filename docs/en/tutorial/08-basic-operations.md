@@ -1,14 +1,14 @@
 ---
 title: "21–24. Email, User/Quota, Upload, Best Practice"
-parent: Tutorial
+parent: Tutorial (EN)
 nav_order: 8
-lang: id
+lang: en
 lang_ref: tutorial-08-basic-operations
 ---
 
-## 21. Setup Email SMTP
+## 21. Set Up SMTP Email
 
-Di Nextcloud:
+In Nextcloud:
 
 ```txt
 Admin settings
@@ -16,7 +16,7 @@ Admin settings
 → Email server
 ```
 
-Contoh Gmail:
+Gmail example:
 
 ```txt
 Send mode      : SMTP
@@ -30,13 +30,13 @@ Login          : username@gmail.com
 Password       : Google App Password
 ```
 
-Kalau ada log:
+If you see a log like:
 
 ```txt
 User has no email address configured
 ```
 
-Isi email user di:
+Fill in the user's email at:
 
 ```txt
 Personal settings
@@ -46,15 +46,15 @@ Personal settings
 
 ---
 
-## 22. User, Folder, dan Quota
+## 22. Users, Folders, and Quota
 
-Nextcloud otomatis:
+Nextcloud automatically creates:
 
 ```txt
-1 user = 1 folder pribadi
+1 user = 1 personal folder
 ```
 
-Contoh:
+Example:
 
 ```txt
 admin
@@ -62,7 +62,7 @@ user1
 user2
 ```
 
-Folder real di server:
+Actual folders on the server:
 
 ```txt
 <SSD_MOUNT>/docker/nextcloud/html/data/admin/files
@@ -70,7 +70,7 @@ Folder real di server:
 <SSD_MOUNT>/docker/nextcloud/html/data/user2/files
 ```
 
-Atur dari UI:
+Set them from the UI:
 
 ```txt
 Admin user
@@ -80,7 +80,7 @@ Admin user
 → Set quota
 ```
 
-Quota bisa manual:
+Quota examples:
 
 ```txt
 50 GB
@@ -97,48 +97,48 @@ sudo docker exec -u www-data nextcloud php occ user:setting user1 files quota "1
 sudo docker exec -u www-data nextcloud php occ user:info user1
 ```
 
-Line manager tidak wajib untuk NAS pribadi.
+Line manager is not required for a personal NAS.
 
 ---
 
-## 23. Upload File dan Drag & Drop
+## 23. File Upload and Drag & Drop
 
-Nextcloud web mendukung drag & drop:
+Nextcloud web supports drag and drop:
 
 ```txt
-Login Nextcloud
+Login to Nextcloud
 → Files
 → All files
-→ drag file/folder ke area tengah
+→ drag file/folder into the middle area
 ```
 
-Rekomendasi:
+Recommendation:
 
 ```txt
-Upload kecil / sedang  : Web browser
-Upload folder besar    : Nextcloud Desktop Client
-Foto HP otomatis       : Nextcloud iOS / Android app
+Small / medium uploads : Web browser
+Large folder uploads   : Nextcloud Desktop Client
+Automatic phone photos : Nextcloud iOS / Android app
 ```
 
 ---
 
-## 24. Jangan Sering Edit File Langsung dari SSH
+## 24. Do Not Frequently Edit Files Directly Over SSH
 
-Folder user:
+User folder:
 
 ```txt
 <SSD_MOUNT>/docker/nextcloud/html/data/<USER>/files
 ```
 
-Kalau copy file manual lewat SSH, Nextcloud belum tentu langsung tahu.
+If you manually copy files through SSH, Nextcloud may not detect them immediately.
 
-Scan user tertentu:
+Scan a specific user:
 
 ```bash
 sudo docker exec -u www-data nextcloud php occ files:scan <USER>
 ```
 
-Scan semua user:
+Scan all users:
 
 ```bash
 sudo docker exec -u www-data nextcloud php occ files:scan --all

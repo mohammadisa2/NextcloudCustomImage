@@ -1,14 +1,14 @@
 ---
-title: "Issue 27: EXT4 aborted journal (filesystem read-only)"
-parent: Issues
+title: "Issue 27: EXT4 aborted journal (read-only filesystem)"
+parent: Issues (EN)
 nav_order: 4
-lang: id
+lang: en
 lang_ref: issue-27-ext4-aborted-journal
 ---
 
-## 27. Issue: EXT4 Aborted Journal dan Filesystem Jadi Read-Only
+## 27. Issue: EXT4 Aborted Journal and Filesystem Becomes Read-Only
 
-Gejala di `dmesg`:
+Symptoms in `dmesg`:
 
 ```txt
 EXT4-fs error: ext4_journal_check_start
@@ -16,22 +16,22 @@ Detected aborted journal
 Remounting filesystem read-only
 ```
 
-Efek:
+Effects:
 
 ```txt
 Nextcloud 403
-occ tidak terbaca
+occ cannot be read
 nextcloud.log Input/output error
-Database/Redis bisa error
+Database/Redis may also fail
 ```
 
-Langkah aman:
+Safe steps:
 
 ```bash
 sudo docker stop nextcloud nextcloud-postgres nextcloud-redis
 ```
 
-Cek device:
+Check the device:
 
 ```bash
 lsblk -f
@@ -43,34 +43,34 @@ Unmount:
 sudo umount <SSD_MOUNT>
 ```
 
-Kalau busy:
+If it is busy:
 
 ```bash
 sudo fuser -vm <SSD_MOUNT>
 ```
 
-Jangan paksa dulu sebelum tahu proses mana yang menahan mount.
+Do not force it before you know which process is holding the mount.
 
-Repair filesystem:
+Repair the filesystem:
 
 ```bash
 sudo fsck.ext4 -f -y /dev/disk/by-uuid/<SSD_UUID>
 ```
 
-Mount ulang:
+Mount again:
 
 ```bash
 sudo mount -a
 findmnt <SSD_MOUNT>
 ```
 
-Pastikan ada `rw`:
+Make sure it contains `rw`:
 
 ```bash
 findmnt -no OPTIONS <SSD_MOUNT>
 ```
 
-Start container:
+Start the containers:
 
 ```bash
 sudo docker start nextcloud-postgres nextcloud-redis
@@ -78,7 +78,7 @@ sleep 5
 sudo docker start nextcloud
 ```
 
-Cek:
+Check:
 
 ```bash
 sudo docker exec -u www-data nextcloud php occ status

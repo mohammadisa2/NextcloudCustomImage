@@ -1,32 +1,32 @@
 ---
-title: "2–4. Disk, UUID, Permanent Mount, dan Folder Data"
-parent: Tutorial
+title: "2–4. Disk, UUID, Permanent Mount, and Data Folders"
+parent: Tutorial (EN)
 nav_order: 3
-lang: id
+lang: en
 lang_ref: tutorial-03-storage-uuid-mount
 ---
 
-## 2. Cek Disk dan Ambil UUID SSD/HDD
+## 2. Check the Disk and Get the SSD/HDD UUID
 
-Cek disk:
+Check the disks:
 
 ```bash
 lsblk -f
 ```
 
-Cari partisi SSD/HDD yang akan dipakai, misalnya:
+Find the SSD/HDD partition you want to use, for example:
 
 ```txt
 sda1 ext4 UUID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
 
-Simpan UUID itu sebagai:
+Save that UUID as:
 
 ```txt
 <SSD_UUID>
 ```
 
-Contoh:
+Example:
 
 ```txt
 <SSD_UUID> = 81e1d45c-3f32-4c29-9efa-626d4792c40a
@@ -34,70 +34,70 @@ Contoh:
 
 ---
 
-## 3. Buat Permanent Mount via UUID
+## 3. Create a Permanent Mount via UUID
 
-Buat mount point stabil:
+Create a stable mount point:
 
 ```bash
 sudo mkdir -p <SSD_MOUNT>
 ```
 
-Contoh:
+Example:
 
 ```bash
 sudo mkdir -p /mnt/nextcloud-ssd
 ```
 
-Backup `/etc/fstab`:
+Back up `/etc/fstab`:
 
 ```bash
 sudo cp /etc/fstab /etc/fstab.bak.$(date +%Y%m%d-%H%M%S)
 ```
 
-Tambahkan mount permanent:
+Add a permanent mount:
 
 ```bash
 echo 'UUID=<SSD_UUID> <SSD_MOUNT> ext4 defaults,nofail,x-systemd.device-timeout=10 0 2' | sudo tee -a /etc/fstab
 ```
 
-Contoh:
+Example:
 
 ```bash
 echo 'UUID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx /mnt/nextcloud-ssd ext4 defaults,nofail,x-systemd.device-timeout=10 0 2' | sudo tee -a /etc/fstab
 ```
 
-Reload systemd dan mount:
+Reload systemd and mount:
 
 ```bash
 sudo systemctl daemon-reload
 sudo mount -a
 ```
 
-Cek:
+Check:
 
 ```bash
 findmnt <SSD_MOUNT>
 ```
 
-Output sehat:
+Healthy output:
 
 ```txt
 TARGET              SOURCE    FSTYPE OPTIONS
 /mnt/nextcloud-ssd  /dev/sdX1 ext4   rw,relatime
 ```
 
-Catatan:
+Notes:
 
 ```txt
-SOURCE boleh tampil sebagai /dev/sda1, /dev/sdb1, atau /dev/sdc1.
-Yang penting TARGET tetap sama dan OPTIONS ada rw.
+SOURCE may appear as /dev/sda1, /dev/sdb1, or /dev/sdc1.
+What matters is that TARGET stays the same and OPTIONS contains rw.
 ```
 
 ---
 
-## 4. Buat Folder Data Nextcloud
+## 4. Create Nextcloud Data Folders
 
-Buat folder:
+Create the folders:
 
 ```bash
 sudo mkdir -p <SSD_MOUNT>/docker/nextcloud/html
@@ -105,7 +105,7 @@ sudo mkdir -p <SSD_MOUNT>/docker/nextcloud/postgres
 sudo mkdir -p <SSD_MOUNT>/docker/nextcloud/redis
 ```
 
-Contoh:
+Example:
 
 ```bash
 sudo mkdir -p /mnt/nextcloud-ssd/docker/nextcloud/html
@@ -113,8 +113,8 @@ sudo mkdir -p /mnt/nextcloud-ssd/docker/nextcloud/postgres
 sudo mkdir -p /mnt/nextcloud-ssd/docker/nextcloud/redis
 ```
 
-Referensi issue terkait:
+Related issue references:
 
-- [Issue: Server menampilkan 403 dan .htaccess tidak bisa dibaca](../issues/25-403-htaccess.md)
-- [Issue: Path SSD berubah dari sda1 ke sdb1](../issues/26-path-ssd-berubah.md)
-- [Issue: EXT4 aborted journal dan filesystem jadi read-only](../issues/27-ext4-aborted-journal.md)
+- [Issue: Server returns 403 and cannot read .htaccess](../issues/25-403-htaccess.md)
+- [Issue: SSD path changes from sda1 to sdb1](../issues/26-ssd-path-changes.md)
+- [Issue: EXT4 aborted journal and read-only filesystem](../issues/27-ext4-aborted-journal.md)

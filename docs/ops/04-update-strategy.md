@@ -2,6 +2,8 @@
 title: "33. Update Strategy"
 parent: Operasional
 nav_order: 4
+lang: id
+lang_ref: ops-04-update-strategy
 ---
 
 ## 33. Update Strategy
@@ -34,4 +36,3 @@ Untuk cloudflared manual:
 Jangan delete/rebuild dari CasaOS Legacy App.
 Update manual lewat Docker jika diperlukan.
 ```
-

@@ -2,6 +2,8 @@
 title: "0. Hasil Akhir yang Diinginkan"
 parent: Tutorial
 nav_order: 1
+lang: id
+lang_ref: tutorial-01-final-target
 ---
 
 ## 0. Hasil Akhir yang Diinginkan
@@ -33,4 +35,3 @@ Header X-Powered-By disembunyikan
 Log error dicek dan dibersihkan setelah aman
 Mount SSD dibuat permanen via UUID agar tidak rusak saat sda/sdb berubah
 ```
-

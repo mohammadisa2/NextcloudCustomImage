@@ -2,6 +2,8 @@
 title: "Issue 08: Install awal gagal"
 parent: Issues
 nav_order: 1
+lang: id
+lang_ref: issue-08-initial-install-failure
 ---
 
 ## 8. Jika Install Awal Gagal
@@ -48,4 +50,3 @@ Rujukan langkah terkait:
 
 - [Deploy via CasaOS + Compose](../tutorial/04-deploy-compose.md)
 - [Install awal dari browser](../tutorial/05-install-awal.md)
-

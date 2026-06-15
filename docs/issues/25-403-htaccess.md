@@ -2,6 +2,8 @@
 title: "Issue 25: 403 dan .htaccess tidak bisa dibaca"
 parent: Issues
 nav_order: 2
+lang: id
+lang_ref: issue-25-403-htaccess
 ---
 
 ## 25. Issue: Server Menampilkan 403 dan `.htaccess` Tidak Bisa Dibaca
@@ -32,4 +34,3 @@ Rujukan issue terkait:
 
 - [Issue 26: Path SSD berubah dari sda1 ke sdb1](26-path-ssd-berubah.md)
 - [Issue 27: EXT4 aborted journal (filesystem read-only)](27-ext4-aborted-journal.md)
-

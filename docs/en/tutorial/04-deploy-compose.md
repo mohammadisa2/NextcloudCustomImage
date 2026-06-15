@@ -1,14 +1,14 @@
 ---
-title: "5–6. Deploy via CasaOS + Cek Container"
-parent: Tutorial
+title: "5–6. Deploy with CasaOS + Check Containers"
+parent: Tutorial (EN)
 nav_order: 4
-lang: id
+lang: en
 lang_ref: tutorial-04-deploy-compose
 ---
 
 ## 5. Install Nextcloud via CasaOS Custom Install
 
-Masuk CasaOS:
+Go to CasaOS:
 
 ```txt
 CasaOS
@@ -16,9 +16,9 @@ CasaOS
 → Custom Install
 ```
 
-Gunakan Compose berikut.
+Use the following Compose file.
 
-Ganti:
+Replace:
 
 ```txt
 <SSD_MOUNT>
@@ -102,15 +102,15 @@ networks:
     driver: bridge
 ```
 
-Catatan penting:
+Important notes:
 
 ```txt
-POSTGRES_HOST harus postgres
-Nama service database harus postgres
-Network alias postgres harus ada
+POSTGRES_HOST must be postgres
+The database service name must be postgres
+The network alias postgres must exist
 ```
 
-Kalau salah, Nextcloud bisa error:
+If not, Nextcloud can fail with:
 
 ```txt
 could not translate host name "postgres"
@@ -118,13 +118,13 @@ could not translate host name "postgres"
 
 ---
 
-## 6. Cek Container Setelah Deploy
+## 6. Check the Containers After Deployment
 
 ```bash
 sudo docker ps
 ```
 
-Harus ada:
+You should see:
 
 ```txt
 nextcloud
@@ -132,20 +132,20 @@ nextcloud-postgres
 nextcloud-redis
 ```
 
-Cek port:
+Check ports:
 
 ```bash
 sudo ss -tulpn | grep -E '(:8080|:5432|:6379)'
 ```
 
-Yang benar:
+Correct expectations:
 
 ```txt
-8080 boleh listen di host untuk akses lokal
-5432 PostgreSQL tidak perlu expose ke host/public
-6379 Redis tidak perlu expose ke host/public
+8080 may listen on the host for local access
+5432 PostgreSQL should not be exposed to host/public
+6379 Redis should not be exposed to host/public
 ```
 
-Referensi issue terkait:
+Related issue reference:
 
-- [Issue: Install awal gagal (postgres host/alias salah)](../issues/08-install-awal-gagal.md)
+- [Issue: Initial install fails because postgres host/alias is wrong](../issues/08-initial-install-failure.md)

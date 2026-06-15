@@ -1,6 +1,8 @@
 ---
 title: Home
 nav_order: 1
+lang: id
+lang_ref: home
 ---
 
 # Nextcloud di CasaOS + Docker + PostgreSQL + Redis + Cloudflare Tunnel
@@ -48,4 +50,3 @@ Header X-Powered-By disembunyikan
 Log error dicek dan dibersihkan setelah aman
 Mount SSD dibuat permanen via UUID agar tidak rusak saat sda/sdb berubah
 ```
-

@@ -1,27 +1,27 @@
 ---
-title: "13–20. Konfigurasi Setelah Tunnel"
-parent: Tutorial
+title: "13–20. Post-Tunnel Configuration"
+parent: Tutorial (EN)
 nav_order: 7
-lang: id
+lang: en
 lang_ref: tutorial-07-hardening
 ---
 
-## 13. Konfigurasi Trusted Domain Nextcloud
+## 13. Configure Nextcloud Trusted Domains
 
-Setelah domain aktif:
+After the domain is active:
 
 ```bash
 sudo docker exec -u www-data nextcloud php occ config:system:set trusted_domains 0 --value="<LAN_IP>:8080"
 sudo docker exec -u www-data nextcloud php occ config:system:set trusted_domains 1 --value="<DOMAIN>"
 ```
 
-Cek:
+Check:
 
 ```bash
 sudo docker exec -u www-data nextcloud php occ config:system:get trusted_domains
 ```
 
-Output sehat:
+Healthy output:
 
 ```txt
 <LAN_IP>:8080
@@ -30,27 +30,27 @@ Output sehat:
 
 ---
 
-## 14. Konfigurasi Trusted Proxy dan Overwrite HTTPS
+## 14. Configure Trusted Proxy and HTTPS Overwrite
 
-Cek subnet Docker network:
+Check the Docker subnet:
 
 ```bash
 sudo docker network inspect nextcloud_nextcloud-net | grep -A5 Subnet
 ```
 
-Contoh subnet:
+Example subnet:
 
 ```txt
 172.18.0.0/16
 ```
 
-Set trusted proxy:
+Set the trusted proxy:
 
 ```bash
 sudo docker exec -u www-data nextcloud php occ config:system:set trusted_proxies 0 --value="172.18.0.0/16"
 ```
 
-Set overwrite:
+Set overwrite values:
 
 ```bash
 sudo docker exec -u www-data nextcloud php occ config:system:set overwritehost --value="<DOMAIN>"
@@ -58,7 +58,7 @@ sudo docker exec -u www-data nextcloud php occ config:system:set overwriteprotoc
 sudo docker exec -u www-data nextcloud php occ config:system:set overwrite.cli.url --value="https://<DOMAIN>"
 ```
 
-Cek:
+Check:
 
 ```bash
 sudo docker exec -u www-data nextcloud php occ config:system:get trusted_proxies
@@ -69,7 +69,7 @@ sudo docker exec -u www-data nextcloud php occ config:system:get overwrite.cli.u
 
 ---
 
-## 15. Aktifkan Redis di Nextcloud
+## 15. Enable Redis in Nextcloud
 
 ```bash
 sudo docker exec -u www-data nextcloud php occ config:system:set memcache.local --value='\OC\Memcache\APCu'
@@ -79,14 +79,14 @@ sudo docker exec -u www-data nextcloud php occ config:system:set redis host --va
 sudo docker exec -u www-data nextcloud php occ config:system:set redis port --value="6379" --type=integer
 ```
 
-Cek:
+Check:
 
 ```bash
 sudo docker exec -u www-data nextcloud php occ config:system:get memcache.locking
 sudo docker exec -u www-data nextcloud php occ config:system:get redis
 ```
 
-Output sehat:
+Healthy output:
 
 ```txt
 \OC\Memcache\Redis
@@ -95,37 +95,37 @@ host: redis
 port: 6379
 ```
 
-Redis tanpa password masih aman jika:
+Redis without a password is still acceptable if:
 
 ```txt
-Redis hanya internal Docker
-Port 6379 tidak diexpose ke host/public
-Router tidak forward port 6379
+Redis is only reachable inside Docker
+Port 6379 is not exposed to host/public
+The router does not forward port 6379
 ```
 
 ---
 
-## 16. Aktifkan Cron Background Jobs
+## 16. Enable Cron Background Jobs
 
-Set mode cron:
+Set cron mode:
 
 ```bash
 sudo docker exec -u www-data nextcloud php occ config:system:set backgroundjobs_mode --value="cron"
 ```
 
-Edit crontab root:
+Edit the root crontab:
 
 ```bash
 sudo crontab -e
 ```
 
-Tambahkan:
+Add:
 
 ```cron
 */5 * * * * /usr/bin/docker exec -u www-data nextcloud php -f /var/www/html/cron.php >/dev/null 2>&1
 ```
 
-Cek:
+Check:
 
 ```bash
 sudo crontab -l
@@ -133,33 +133,33 @@ sudo docker exec -u www-data nextcloud php occ config:system:get backgroundjobs_
 sudo docker exec -u www-data nextcloud php occ config:app:get core lastcron
 ```
 
-Output sehat:
+Healthy output:
 
 ```txt
 cron
 ```
 
-Dan `lastcron` berisi timestamp angka.
+And `lastcron` should contain a numeric timestamp.
 
 ---
 
-## 17. Set Region dan Maintenance Window
+## 17. Set Region and Maintenance Window
 
-Default phone region, contoh Indonesia:
+Default phone region, example Indonesia:
 
 ```bash
 sudo docker exec -u www-data nextcloud php occ config:system:set default_phone_region --value="ID"
 ```
 
-Maintenance window memakai UTC.
+The maintenance window uses UTC.
 
-Contoh set jam 18 UTC:
+Example for 18 UTC:
 
 ```bash
 sudo docker exec -u www-data nextcloud php occ config:system:set maintenance_window_start --type=integer --value=18
 ```
 
-Cek:
+Check:
 
 ```bash
 sudo docker exec -u www-data nextcloud php occ config:system:get default_phone_region
@@ -168,9 +168,9 @@ sudo docker exec -u www-data nextcloud php occ config:system:get maintenance_win
 
 ---
 
-## 18. Tambahkan HSTS Header di Cloudflare
+## 18. Add HSTS Header in Cloudflare
 
-Di Cloudflare:
+In Cloudflare:
 
 ```txt
 Rules
@@ -204,7 +204,7 @@ Test:
 curl -I https://<DOMAIN> | grep -i strict
 ```
 
-Output sehat:
+Healthy output:
 
 ```txt
 strict-transport-security: max-age=15552000; includeSubDomains
@@ -212,21 +212,21 @@ strict-transport-security: max-age=15552000; includeSubDomains
 
 ---
 
-## 19. Sembunyikan Header X-Powered-By
+## 19. Hide the X-Powered-By Header
 
-Cek:
+Check:
 
 ```bash
 curl -I https://<DOMAIN> | grep -i powered
 ```
 
-Kalau muncul:
+If it appears:
 
 ```txt
 x-powered-by: PHP/x.x.x
 ```
 
-Sembunyikan via Cloudflare:
+Hide it through Cloudflare:
 
 ```txt
 Rules
@@ -251,12 +251,12 @@ Header name:
 X-Powered-By
 ```
 
-Penting:
+Important:
 
 ```txt
-Jangan pilih Set static dengan value Remove.
-Itu salah karena hasilnya menjadi X-Powered-By: Remove.
-Yang benar action-nya harus Remove.
+Do not choose Set static with value Remove.
+That is wrong because it will produce X-Powered-By: Remove.
+The action must be Remove.
 ```
 
 Test:
@@ -265,17 +265,17 @@ Test:
 curl -I https://<DOMAIN> | grep -i powered
 ```
 
-Kalau tidak ada output, berarti berhasil.
+If there is no output, it worked.
 
 ---
 
-## 20. Test HTTPS Publik
+## 20. Test Public HTTPS
 
 ```bash
 curl -I https://<DOMAIN>
 ```
 
-Output sehat:
+Healthy output:
 
 ```txt
 HTTP/2 302
@@ -284,4 +284,4 @@ server: cloudflare
 strict-transport-security: max-age=15552000; includeSubDomains
 ```
 
-`HTTP/2 302` normal karena Nextcloud mengarahkan user ke halaman login.
+`HTTP/2 302` is normal because Nextcloud redirects users to the login page.

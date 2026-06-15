@@ -2,6 +2,8 @@
 title: Issues
 nav_order: 3
 has_children: true
+lang: id
+lang_ref: issues-index
 ---
 
 # Issues (Troubleshooting)
@@ -15,4 +17,3 @@ Daftar issue:
 - [Issue 26: Path SSD berubah dari sda1 ke sdb1](26-path-ssd-berubah.md)
 - [Issue 27: EXT4 aborted journal (filesystem read-only)](27-ext4-aborted-journal.md)
 - [Issue 28: PostgreSQL too many clients already](28-postgres-too-many-clients.md)
-
