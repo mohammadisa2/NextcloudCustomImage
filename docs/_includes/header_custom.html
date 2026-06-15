@@ -1,0 +1,46 @@
+{% assign current_lang = page.lang | default: "id" %}
+{% if current_lang == "en" %}
+  {% assign switch_lang = "id" %}
+  {% assign switch_label = "Indonesia" %}
+  {% assign home_label = "Home" %}
+  {% assign tutorial_label = "Tutorial" %}
+  {% assign issues_label = "Issues" %}
+  {% assign ops_label = "Operations" %}
+{% else %}
+  {% assign switch_lang = "en" %}
+  {% assign switch_label = "English" %}
+  {% assign home_label = "Home" %}
+  {% assign tutorial_label = "Tutorial" %}
+  {% assign issues_label = "Issues" %}
+  {% assign ops_label = "Operasional" %}
+{% endif %}
+
+{% assign home_page = site.html_pages | where: "lang_ref", "home" | where: "lang", current_lang | first %}
+{% assign tutorial_page = site.html_pages | where: "lang_ref", "tutorial-index" | where: "lang", current_lang | first %}
+{% assign issues_page = site.html_pages | where: "lang_ref", "issues-index" | where: "lang", current_lang | first %}
+{% assign ops_page = site.html_pages | where: "lang_ref", "ops-index" | where: "lang", current_lang | first %}
+{% assign switch_page = nil %}
+{% if page.lang_ref %}
+  {% assign switch_page = site.html_pages | where: "lang_ref", page.lang_ref | where: "lang", switch_lang | first %}
+{% endif %}
+
+{% assign current_url = page.url | relative_url %}
+{% assign home_url = home_page.url | relative_url %}
+{% assign tutorial_url = tutorial_page.url | relative_url %}
+{% assign issues_url = issues_page.url | relative_url %}
+{% assign ops_url = ops_page.url | relative_url %}
+
+<div class="docs-header-toolbar">
+  <div class="docs-header-group">
+    <a class="docs-header-chip{% if page.lang_ref == 'home' %} is-active{% endif %}" href="{{ home_url }}">{{ home_label }}</a>
+    <a class="docs-header-chip{% if current_url contains tutorial_url and page.lang_ref != 'home' %} is-active{% endif %}" href="{{ tutorial_url }}">{{ tutorial_label }}</a>
+    <a class="docs-header-chip{% if current_url contains issues_url %} is-active{% endif %}" href="{{ issues_url }}">{{ issues_label }}</a>
+    <a class="docs-header-chip{% if current_url contains ops_url %} is-active{% endif %}" href="{{ ops_url }}">{{ ops_label }}</a>
+  </div>
+  <div class="docs-header-group docs-header-group-right">
+    {% if switch_page %}
+      <a class="docs-header-chip docs-header-chip-lang" href="{{ switch_page.url | relative_url }}">{{ switch_label }}</a>
+    {% endif %}
+  </div>
+</div>
+

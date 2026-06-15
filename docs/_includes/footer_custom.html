@@ -1,0 +1,105 @@
+{% assign current_lang = page.lang | default: "id" %}
+{% assign lang_label = "Indonesia" %}
+{% assign switch_lang = "en" %}
+{% assign switch_label = "English" %}
+{% if current_lang == "en" %}
+  {% assign lang_label = "English" %}
+  {% assign switch_lang = "id" %}
+  {% assign switch_label = "Indonesia" %}
+{% endif %}
+
+{% assign switch_page = nil %}
+{% if page.lang_ref %}
+  {% assign switch_page = site.html_pages | where: "lang_ref", page.lang_ref | where: "lang", switch_lang | first %}
+{% endif %}
+
+{% assign page_section = page.parent | default: page.title | replace: " (EN)", "" %}
+{% assign repo_url = site.aux_links["Repo"][0] %}
+{% assign source_url = repo_url | append: "/blob/main/" | append: page.path %}
+{% assign en_prefix = "/en/" | relative_url %}
+{% assign root_prefix = "/" | relative_url %}
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const mainContent = document.querySelector(".main-content");
+    const mainHeading = mainContent ? mainContent.querySelector("h1") : null;
+
+    if (mainHeading) {
+      const toolbar = document.createElement("div");
+      toolbar.className = "docs-page-toolbar";
+      toolbar.innerHTML = `
+        <span class="docs-page-chip is-muted">{{ page_section | escape }}</span>
+        <span class="docs-page-chip is-muted">{{ lang_label }}</span>
+        {% if switch_page %}
+          <a class="docs-page-chip" href="{{ switch_page.url | relative_url }}">Switch to {{ switch_label }}</a>
+        {% endif %}
+        <a class="docs-page-chip" href="{{ source_url }}" target="_blank" rel="noreferrer">View source</a>
+      `;
+      mainHeading.insertAdjacentElement("afterend", toolbar);
+    }
+
+    const navLinks = Array.from(document.querySelectorAll(".side-bar a.nav-list-link"));
+    const currentPath = normalize(window.location.pathname);
+    const enPrefix = "{{ en_prefix }}";
+    const rootPrefix = "{{ root_prefix }}";
+    const isEnglish = {{ current_lang == "en" | jsonify }};
+
+    const items = navLinks
+      .map((link) => ({
+        href: normalize(new URL(link.href, window.location.origin).pathname),
+        text: link.textContent.trim()
+      }))
+      .filter((item, index, all) => item.text && item.href && all.findIndex((x) => x.href === item.href) === index)
+      .filter((item) => {
+        const startsWithEn = item.href === normalize(enPrefix) || item.href.startsWith(normalize(enPrefix) + "/");
+        return isEnglish ? startsWithEn : !startsWithEn;
+      });
+
+    const currentIndex = items.findIndex((item) => item.href === currentPath);
+    if (currentIndex === -1 || !mainContent) return;
+
+    const prevItem = items[currentIndex - 1];
+    const nextItem = items[currentIndex + 1];
+    if (!prevItem && !nextItem) return;
+
+    const pager = document.createElement("nav");
+    pager.className = "docs-pager";
+    pager.setAttribute("aria-label", "Page navigation");
+
+    if (prevItem) {
+      pager.appendChild(createPagerLink(prevItem, "Previous", "docs-pager-prev"));
+    } else {
+      pager.appendChild(document.createElement("div"));
+    }
+
+    if (nextItem) {
+      pager.appendChild(createPagerLink(nextItem, "Next", "docs-pager-next"));
+    }
+
+    mainContent.appendChild(pager);
+
+    function createPagerLink(item, kicker, className) {
+      const link = document.createElement("a");
+      link.className = `docs-pager-link ${className}`;
+      link.href = item.href;
+      link.innerHTML = `
+        <span class="docs-pager-kicker">${kicker}</span>
+        <span class="docs-pager-title">${escapeHtml(item.text)}</span>
+      `;
+      return link;
+    }
+
+    function normalize(path) {
+      if (!path) return "/";
+      if (path.length > 1 && path.endsWith("/")) return path.slice(0, -1);
+      return path;
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement("div");
+      div.textContent = text;
+      return div.innerHTML;
+    }
+  });
+</script>
+

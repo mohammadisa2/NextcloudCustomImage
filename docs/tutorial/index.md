@@ -2,6 +2,8 @@
 title: Tutorial
 nav_order: 2
 has_children: true
+lang: id
+lang_ref: tutorial-index
 ---
 
 # Tutorial (Step-by-step)
@@ -19,4 +21,3 @@ Ikuti urutan halaman di bawah ini dari atas ke bawah. Setiap langkah dibuat supa
 9. [34–35. Checklist Final + Kesimpulan](09-penutupan.md)
 
 Kalau menemui masalah, lihat [Issues](../issues/).
-

@@ -1,33 +1,5 @@
-{% assign current_lang = page.lang | default: "id" %}
-{% assign target_lang = "en" %}
-{% if current_lang == "en" %}
-  {% assign target_lang = "id" %}
-{% endif %}
-
-{% assign id_url = "/" | relative_url %}
-{% assign en_url = "/en/" | relative_url %}
-
-{% if page.lang_ref %}
-  {% assign id_page = site.html_pages | where: "lang_ref", page.lang_ref | where: "lang", "id" | first %}
-  {% assign en_page = site.html_pages | where: "lang_ref", page.lang_ref | where: "lang", "en" | first %}
-
-  {% if id_page %}
-    {% assign id_url = id_page.url | relative_url %}
-  {% endif %}
-
-  {% if en_page %}
-    {% assign en_url = en_page.url | relative_url %}
-  {% endif %}
-{% endif %}
-
 <hr>
 <div class="nav-language-switcher">
-  <div><strong>Language</strong></div>
-  <div>
-    {% if current_lang == "en" %}
-      <a href="{{ id_url }}">Indonesia</a> | <strong>English</strong>
-    {% else %}
-      <strong>Indonesia</strong> | <a href="{{ en_url }}">English</a>
-    {% endif %}
-  </div>
+  <div><strong>Docs</strong></div>
+  <div>Structured for tutorial, troubleshooting, and operations.</div>
 </div>
